@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="#FEFEFF"
+    android:padding="8dp"
+    app:cardCornerRadius="8dp"
+    tools:layout_editor_absoluteX="5dp"
+    tools:layout_editor_absoluteY="5dp">
+
+    <TextView
+        android:id="@+id/brand"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:background="#FEFEFF"
+        android:fontFamily="@font/gothampro_medium"
+        android:text="Brand"
+        android:textSize="20dp" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="85dp"
+        android:layout_height="23dp"
+        android:onClick="addBrand"
+        android:layout_weight="1"
+        android:buttonTint="#B8C6DF" />
+
+</LinearLayout>

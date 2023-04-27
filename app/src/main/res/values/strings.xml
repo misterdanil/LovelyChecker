@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">LovelyChecker</string>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Эл. почта</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="sign_up_link"><a href="@+id/SignupFragment">Нет аккаунта? Зарегистрируйтесь!</a></string>
+    <string name="sign_in_link"><a href="@+id/LoginFragment">Уже есть аккаунт? Войдите!</a></string>
+
+
+</resources>
