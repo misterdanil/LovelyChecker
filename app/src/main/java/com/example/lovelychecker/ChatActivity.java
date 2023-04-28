@@ -183,6 +183,29 @@ public class ChatActivity extends AppCompatActivity {
                 System.err.println("fail");
             }
         });
+
+        Call<Chat> chatCall = apiService.getChat(chatId);
+
+        chatCall.enqueue(new Callback<Chat>() {
+            @Override
+            public void onResponse(Call<Chat> call, Response<Chat> response) {
+                if(response.isSuccessful()) {
+                    Chat chat = response.body();
+                    User user = chat.getUser();
+                    if (user.getFirstName() != null) {
+                        ((TextView) findViewById(R.id.chat_image_name)).setText(chat.getUser().getFirstName());
+                    }
+                    else {
+                        ((TextView) findViewById(R.id.chat_image_name)).setText(chat.getUser().getUsername());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Chat> call, Throwable t) {
+
+            }
+        });
     }
 
     private void setProductRecylder(List<Message> item, String chatId) {

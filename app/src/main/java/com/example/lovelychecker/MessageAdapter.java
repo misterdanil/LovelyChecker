@@ -205,7 +205,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             WebSocketStompClient client = new WebSocketStompClient(new StandardWebSocketClient());
             client.setMessageConverter(new MappingJackson2MessageConverter());
-            client.connect("ws://192.168.0.11:8080/chatwww", sessionHandler);
+            client.connect("ws://192.168.1.58:8080/chatwww", sessionHandler);
             return null;
         }
 

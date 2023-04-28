@@ -62,7 +62,7 @@ public class ChatsFragment extends AppCompatActivity {
             public void onResponse(Call<List<Chat>> call, Response<List<Chat>> response) {
                if(response.isSuccessful()) {
                    chatList = response.body();
-                   chatList.add(new Chat("1", new User("1", "Себастьян", "Бах", "SebBach"), new Message("1", "Добрый день, да, фокусировка у фотоаппарата есть", new User("1", "Эксл", "Роуз", "AxlRrr"), new Date()), new Product("3", "Смартфон Apple IPhone 13 Pro Max Dual Slim 256 GB FWAWADSD Смартфон Apple IPhone 13 Pro Max Dual Slim 256 GB FWAWADSD Смартфон Apple IPhone 13 Pro Max Dual Slim 256 GB FWAWADSD Смартфон Apple IPhone 13 Pro Max Dual Slim 256 GB FWAWADSD Смартфон Apple IPhone 13 Pro Max Dual Slim 256 GB FWAWADSD")));
+//                   chatList.add(new Chat("1", new User("1", "Себастьян", "Бах", "SebBach"), new Message("1", "Добрый день, да, фокусировка у фотоаппарата есть", new User("1", "Эксл", "Роуз", "AxlRrr"), new Date()), new Product("3", "Смартфон Apple IPhone 13 Pro Max Dual Slim 256 GB FWAWADSD Смартфон Apple IPhone 13 Pro Max Dual Slim 256 GB FWAWADSD Смартфон Apple IPhone 13 Pro Max Dual Slim 256 GB FWAWADSD Смартфон Apple IPhone 13 Pro Max Dual Slim 256 GB FWAWADSD Смартфон Apple IPhone 13 Pro Max Dual Slim 256 GB FWAWADSD")));
                    chatAdapter = new ChatAdapter(context, chatList, activity);
                    recyclerView.setAdapter(chatAdapter);
                }

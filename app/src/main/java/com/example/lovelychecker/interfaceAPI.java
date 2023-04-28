@@ -78,6 +78,8 @@ public interface interfaceAPI {
     @GET("/product/smartphone/{id}/resources/{type}/reviews")
     Call<List<ResourceReview>> getResourcesReviews(@Path("id") String id, @Path("type")String type);
 
+    @GET("/chats/{id}")
+    Call<Chat> getChat(@Path("id") String id);
     @GET("login/oauth2/{service}")
     Call<Void> oauth2(@Path(value="service") String service);
 //    @GET("/somewhere")
