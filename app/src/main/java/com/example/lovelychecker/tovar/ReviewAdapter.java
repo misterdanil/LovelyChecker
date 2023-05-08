@@ -25,6 +25,7 @@ import com.example.lovelychecker.interfaceAPI;
 import java.io.IOException;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -118,14 +119,19 @@ public class ReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
                 else {
                     itemViewHolder.button.setOnClickListener(e -> {
-                        Call<String> call = apiService.createChat("Bearer " + RetrofitClientInstance.ACCESS_TOKEN,
+                        Call<ResponseBody> call = apiService.createChat("Bearer " + RetrofitClientInstance.ACCESS_TOKEN,
                                 new ChatRequest(review.getUserId(), review.getProductId()));
-                        call.enqueue(new Callback<String>() {
+                        call.enqueue(new Callback<ResponseBody>() {
                             @Override
-                            public void onResponse(Call<String> call, Response<String> response) {
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                 System.out.println("code is " + response.code());
                                 if (response.isSuccessful()) {
-                                    String chatId = response.body();
+                                    String chatId = null;
+                                    try {
+                                        chatId = response.body().string();
+                                    } catch (IOException ex) {
+                                        throw new RuntimeException(ex);
+                                    }
                                     Intent intent = new Intent(context, ChatActivity.class);
                                     intent.putExtra("id", chatId);
                                     intent.putExtra("productId", review.getProductId());
@@ -151,7 +157,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             }
 
                             @Override
-                            public void onFailure(Call<String> call, Throwable t) {
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
                                 System.out.println("Fail create chat");
                             }
                         });

@@ -85,7 +85,7 @@ public class ConfirmFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
-
+                System.out.println("fail");
             }
         });
 

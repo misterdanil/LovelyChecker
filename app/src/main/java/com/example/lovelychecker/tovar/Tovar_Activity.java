@@ -178,16 +178,17 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 //                break;
             case R.id.nav_logout:
-                RetrofitClientInstance.USER_ID = null;
-                RetrofitClientInstance.USERNAME = null;
-                RetrofitClientInstance.ACCESS_TOKEN = null;
+//                RetrofitClientInstance.USER_ID = null;
+//                RetrofitClientInstance.USERNAME = null;
+//                RetrofitClientInstance.ACCESS_TOKEN = null;
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                break;
             case R.id.chats:
                 Intent intent2 = new Intent(this, ChatsFragment.class);
                 startActivity(intent2);
-                finish();
+                break;
         }
 
 //        drawerLayout.closeDrawer(GravityCompat.START);

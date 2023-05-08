@@ -12,7 +12,9 @@ import javax.xml.transform.Result;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Header;
@@ -73,7 +75,7 @@ public interface interfaceAPI {
     Call<List<Chat>> getChats(@Header(value = "Authorization") String token);
 
     @POST("/chat")
-    Call<String> createChat(@Header(value = "Authorization") String token, @Body ChatRequest chat);
+    Call<ResponseBody> createChat(@Header(value = "Authorization") String token, @Body ChatRequest chat);
 
     @GET("/product/smartphone/{id}/resources/{type}/reviews")
     Call<List<ResourceReview>> getResourcesReviews(@Path("id") String id, @Path("type")String type);
