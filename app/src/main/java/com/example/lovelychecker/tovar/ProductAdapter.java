@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,8 @@ import com.example.lovelychecker.RetrofitClientInstance;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -28,15 +31,23 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE = 1;
+    private static final int LOADING = 0;
     private final Context context;
 
     private final Activity activity;
     private final List<Product> listRecyclerItem;
 
+    private boolean isLoadingAdded = false;
+
     public ProductAdapter(Activity acitivity, Context context, List<Product> listRecyclerItem) {
         this.activity = acitivity;
         this.context = context;
         this.listRecyclerItem = listRecyclerItem;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return (position == listRecyclerItem.size() - 1 && isLoadingAdded) ? LOADING : TYPE;
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -64,16 +75,55 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        switch (i) {
+        RecyclerView.ViewHolder viewHolder = null;
+                switch (i) {
+            case LOADING:
+                View viewLoading = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_progress, viewGroup, false);
+                viewHolder = new LoadingViewHolder(viewLoading);
+                break;
             case TYPE:
-
-            default:
 
                 View layoutView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
 
-                return new ItemViewHolder((layoutView));
-        }
+                viewHolder = new ItemViewHolder((layoutView));
 
+                break;
+            }
+            return viewHolder;
+
+    }
+
+    public void addAll(List<Product> products) {
+        listRecyclerItem.addAll(products);
+    }
+
+    public void addLoadingFooter() {
+        isLoadingAdded = true;
+        add(new Product());
+    }
+    public void add(Product product) {
+        listRecyclerItem.add(product);
+        notifyItemInserted(listRecyclerItem.size() - 1);
+    }
+
+    public void removeAll() {
+        listRecyclerItem.clear();
+        notifyDataSetChanged();
+    }
+
+    public void removeLoadingFooter() {
+        isLoadingAdded = false;
+
+        if(listRecyclerItem.size() == 0) {
+            return;
+        }
+        int position = listRecyclerItem.size() - 1;
+        Product result = listRecyclerItem.get(position);
+
+        if (result != null) {
+            listRecyclerItem.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 
     @Override
@@ -83,19 +133,23 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         switch (viewType) {
             case TYPE:
-            default:
-
                 ItemViewHolder itemViewHolder = (ItemViewHolder) viewHolder;
                 Product product = listRecyclerItem.get(i);
                 new ImageBitmapUriTask(activity, itemViewHolder.image).execute(RetrofitClientInstance.BASE_URL + "/" + "product/smartphones/" + product.getId() + "/image");
                 itemViewHolder.name.setText(product.getTitle());//Имя сюда
-                itemViewHolder.score.setText(String.valueOf(product.getAverageRating()));//Сюда среднюю оценку
+                itemViewHolder.score.setText(BigDecimal.valueOf(product.getAverageRating())
+                        .setScale(2, RoundingMode.HALF_UP).toString());//Сюда среднюю оценку
                 itemViewHolder.price.setText(String.format(String.valueOf(product.getFromPrice())+"₽ - "+product.getToPrice()+"₽"));//Сюда цену
                 itemViewHolder.container.setOnClickListener(e -> {
                     Intent intent = new Intent(context, ItemScreen.class);
                     intent.putExtra("id", product.getId());
                     context.startActivity(intent);
                 });
+                break;
+                case LOADING:
+                    LoadingViewHolder loadingViewHolder = (LoadingViewHolder) viewHolder;
+                    loadingViewHolder.progressBar.setVisibility(View.VISIBLE);
+                    break;
         }
 
     }
@@ -147,5 +201,16 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemCount() {
         return listRecyclerItem.size();
+    }
+
+    public class LoadingViewHolder extends RecyclerView.ViewHolder {
+
+        private ProgressBar progressBar;
+
+        public LoadingViewHolder(View itemView) {
+            super(itemView);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.loadmore_progress);
+
+        }
     }
 }

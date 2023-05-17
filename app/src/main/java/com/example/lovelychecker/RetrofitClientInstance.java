@@ -8,8 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClientInstance {
 
 private static Retrofit retrofit = null;
-    public static final String BASE_URL = "http://10.131.60.207:8080";
-    public static final String SOCKET_URL = "ws://10.131.60.207:8080";
+    public static final String BASE_URL = "http://192.168.0.13:8080";
+    public static final String SOCKET_URL = "ws://192.168.0.13:8080";
     public static String JSESSION_ID;
 
     public static String USER_ID = null;

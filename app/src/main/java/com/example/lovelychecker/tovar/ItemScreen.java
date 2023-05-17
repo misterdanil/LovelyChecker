@@ -30,6 +30,8 @@ import com.example.lovelychecker.RetrofitClientInstance;
 import com.example.lovelychecker.interfaceAPI;
 import com.google.gson.internal.LinkedTreeMap;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -122,7 +124,8 @@ public class ItemScreen extends AppCompatActivity {
                     LinkedTreeMap<String, Object> characteristics = (LinkedTreeMap<String, Object>)product.getCharacteristics();
                     product.getCharacteristics();
 
-                    marks.setText("Среднее " + product.getAverageRating()); //Сюда пихать среднюю оценку
+                    marks.setText("Среднее " + BigDecimal.valueOf(product.getAverageRating())
+                            .setScale(2, RoundingMode.HALF_UP).toString()); //Сюда пихать среднюю оценку
                     name.setText(product.getTitle()); //Сюда название товара
                     new ProductAdapter.ImageBitmapUriTask(activity,image).execute(RetrofitClientInstance.BASE_URL + "/" + "product/smartphones/" + product.getId() + "/image"); // Сюда картинку
                     ratingBar.setRating(product.getAverageRating().floatValue()); //Сюда так же рейтинг, но он будет отображаться звёздочками
@@ -241,7 +244,7 @@ public class ItemScreen extends AppCompatActivity {
                     TableRow sdRow = getTitle("Карта памяти");
                     tl.addView(sdRow);
                     if(sd.containsKey("max")) {
-                        TableRow sdValueRow = getParameter("Мегапиксели", (String) sd.get("max") + " " + (String) sd.get("measure"));
+                        TableRow sdValueRow = getParameter("Объём", (String) sd.get("max") + " " + (String) sd.get("measure"));
                         tl.addView(sdValueRow);
                     }
                     if(sd.containsKey("type")) {

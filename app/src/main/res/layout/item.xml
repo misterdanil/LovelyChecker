@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:background="@drawable/item_style"
     android:padding="8dp"
+    android:id="@+id/container"
     android:elevation="10dp"
     app:cardCornerRadius="8dp">
 
@@ -18,18 +18,16 @@
         app:cardElevation="4dp"
         app:contentPadding="10dp"
         app:cardCornerRadius="10dp" >
-    <ImageView
-        android:id="@+id/tovarImage"
-        android:layout_width="88dp"
-        android:layout_height="88dp"
-        android:layout_weight="1"
-        android:clipToOutline="true"
-        app:srcCompat="@drawable/ic_launcher_background"
-        tools:targetApi="s" />
+        <ImageView
+            android:id="@+id/tovarImage"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:clipToOutline="true"
+            app:srcCompat="@drawable/ic_launcher_background" />
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
-        android:layout_width="299dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
@@ -38,11 +36,11 @@
             android:id="@+id/prodName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/gothampro_bold"
+            android:fontFamily="@font/gothampro_medium"
             android:text="Название продукта"
+            android:layout_weight="1"
             android:textColor="#3D3D3D"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,7 +72,7 @@
             android:fontFamily="@font/gothampro_medium"
             android:text="Цена"
             android:textColor="#7790BD"
-            android:textSize="23sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 </LinearLayout>

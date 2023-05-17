@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lovelychecker.ChatsFragment;
 import com.example.lovelychecker.MainActivity;
+import com.example.lovelychecker.PaginationScrollListener;
 import com.example.lovelychecker.R;
 import com.example.lovelychecker.RetrofitClientInstance;
 import com.example.lovelychecker.interfaceAPI;
@@ -38,7 +40,7 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
 
     Button filter;
 
-    private String sort;
+    private String sort = "CHEAP";
 
     private static final String TAG = "MainActivity";
     RecyclerView prodList;
@@ -52,6 +54,13 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
     private ArrayList<String> rams;
     private Double priceFrom;
     private Double priceTo;
+    private ProgressBar progressBar;
+    private static final int PAGE_START = 1;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int currentPage = PAGE_START;
+    private int limit_products = 25;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +79,13 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
             }
         });
 
+        progressBar = findViewById(R.id.progressbar);
+
         View headerView = navigationView.inflateHeaderView(R.layout.nav_header);
         ((TextView)headerView.findViewById(R.id.name)).setText(RetrofitClientInstance.USERNAME);
+        isLastPage = false;
+        isLoading = false;
+        currentPage = 1;
 
         finder = (EditText) findViewById(R.id.finder);
         find = (ImageButton) findViewById(R.id.find);
@@ -118,7 +132,8 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
         }
 
         String text = finder.getText().toString();
-        Call<List<Product>> call = apiService.getProducts(text, brands, rams, sort, priceFrom, priceTo);
+        Call<List<Product>> call = apiService.getProducts(text, brands, rams, sort, priceFrom, priceTo,
+                (currentPage - 1) * limit_products, limit_products);
 
         call.enqueue(new Callback<List<Product>>() {
             @Override
@@ -129,8 +144,20 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
                     products.forEach(product -> {
                         item.add(product);
                     });
+                    if(currentPage == 1) {
+                        setProductRecylder(products);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                    if(products.size() == limit_products) {
+                        productAdapter.addLoadingFooter();
+                    }
+                    else {
+                        productAdapter.removeLoadingFooter();
+                        isLastPage = true;
+                    }
 
-                    setProductRecylder(item);
+                    productAdapter.addAll(products);
+                    isLoading = false;
                 }
                 else {
                     System.out.println(response.code());
@@ -152,6 +179,25 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
 
         productAdapter = new ProductAdapter(this, this, item);
         prodList.setAdapter(productAdapter);
+        prodList.addOnScrollListener(new PaginationScrollListener((LinearLayoutManager) layoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                System.err.println("more");
+                currentPage += 1;
+                getProducts(true);
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
     }
 
     public void find(View view){
@@ -162,11 +208,18 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
         ToggleButton tb = (ToggleButton) view;
 
         if(tb.isChecked()) {
-            sort = "CHEAP";
-        }
-        else {
             sort = "EXPENSIVE";
         }
+        else {
+            sort = "CHEAP";
+        }
+
+        if(productAdapter != null) {
+            productAdapter.removeAll();
+        }
+        isLastPage = false;
+        isLoading = false;
+        currentPage = 1;
 
         getProducts(true);
     }

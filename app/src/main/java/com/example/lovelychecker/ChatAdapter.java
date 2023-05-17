@@ -60,7 +60,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
             intent.putExtra("productId", chat.getProduct().getId());
             context.startActivity(intent);
         });
-        holder.title.setText(chat.getUser().getFirstName());
+        if(chat.getUser().getFirstName() != null && !chat.getUser().getFirstName().isEmpty()) {
+            holder.title.setText(chat.getUser().getFirstName());
+        }
+        else {
+            holder.title.setText(chat.getUser().getUsername());
+        }
         new ChatActivity.ImageBitmapUriTask(activity, holder.image).execute(RetrofitClientInstance.BASE_URL + "/" + "product/smartphones/" + chat.getProduct().getId() + "/image");
         if(chat.getLastMessage() != null) {
             holder.message.setText(chat.getLastMessage().getText());

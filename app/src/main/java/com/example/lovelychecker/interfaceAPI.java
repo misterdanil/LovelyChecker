@@ -45,6 +45,12 @@ public interface interfaceAPI {
                                     @Query("rams") List<String> rams, @Query("sort") String sort,
                                     @Query("fromPrice") Double fromPrice, @Query("toPrice") Double toPrice);
 
+    @GET("/product/smartphones")
+    Call<List<Product>> getProducts(@Query(value = "text") String text, @Query("brands") List<String> brands,
+                                    @Query("rams") List<String> rams, @Query("sort") String sort,
+                                    @Query("fromPrice") Double fromPrice, @Query("toPrice") Double toPrice,
+                                    @Query("start") Integer skip, @Query("limit") Integer limit);
+
     @GET("/product/smartphone/{id}")
     Call<Product> getProduct(@Path("id") String id);
 
