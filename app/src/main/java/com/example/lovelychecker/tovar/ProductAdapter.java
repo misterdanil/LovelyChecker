@@ -101,6 +101,11 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         isLoadingAdded = true;
         add(new Product());
     }
+
+    public boolean isLoadingAdded() {
+        return isLoadingAdded;
+
+    }
     public void add(Product product) {
         listRecyclerItem.add(product);
         notifyItemInserted(listRecyclerItem.size() - 1);
@@ -137,8 +142,10 @@ public class ProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 Product product = listRecyclerItem.get(i);
                 new ImageBitmapUriTask(activity, itemViewHolder.image).execute(RetrofitClientInstance.BASE_URL + "/" + "product/smartphones/" + product.getId() + "/image");
                 itemViewHolder.name.setText(product.getTitle());//Имя сюда
-                itemViewHolder.score.setText(BigDecimal.valueOf(product.getAverageRating())
-                        .setScale(2, RoundingMode.HALF_UP).toString());//Сюда среднюю оценку
+                if(product.getAverageRating() != null) {
+                    itemViewHolder.score.setText(String.valueOf(BigDecimal.valueOf(product.getAverageRating())
+                            .setScale(2, RoundingMode.HALF_UP).doubleValue()));//Сюда среднюю оценку
+                }
                 itemViewHolder.price.setText(String.format(String.valueOf(product.getFromPrice())+"₽ - "+product.getToPrice()+"₽"));//Сюда цену
                 itemViewHolder.container.setOnClickListener(e -> {
                     Intent intent = new Intent(context, ItemScreen.class);

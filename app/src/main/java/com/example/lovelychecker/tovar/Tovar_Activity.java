@@ -88,6 +88,7 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
         currentPage = 1;
 
         finder = (EditText) findViewById(R.id.finder);
+
         find = (ImageButton) findViewById(R.id.find);
         filter = (Button) findViewById(R.id.filt);
         filter.setOnClickListener(new View.OnClickListener() {
@@ -141,22 +142,25 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
                 if(response.isSuccessful()) {
                     List<Product> products = response.body();
                     System.out.println(products);
-                    products.forEach(product -> {
-                        item.add(product);
-                    });
+//                    products.forEach(product -> {
+//                        item.add(product);
+//                    });
                     if(currentPage == 1) {
                         setProductRecylder(products);
                         progressBar.setVisibility(View.GONE);
                     }
+                    else {
+                        productAdapter.removeLoadingFooter();
+                        productAdapter.addAll(products);
+                    }
+
                     if(products.size() == limit_products) {
                         productAdapter.addLoadingFooter();
                     }
                     else {
-                        productAdapter.removeLoadingFooter();
                         isLastPage = true;
                     }
 
-                    productAdapter.addAll(products);
                     isLoading = false;
                 }
                 else {
@@ -201,6 +205,14 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
     }
 
     public void find(View view){
+        if(productAdapter != null) {
+            productAdapter.removeLoadingFooter();
+            productAdapter.removeAll();
+        }
+        isLastPage = false;
+        isLoading = false;
+        currentPage = 1;
+
         getProducts(true);
     }
 
