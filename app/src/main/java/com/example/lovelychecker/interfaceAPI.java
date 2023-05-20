@@ -21,6 +21,7 @@ import retrofit2.http.Header;
 import retrofit2.Call;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -66,6 +67,9 @@ public interface interfaceAPI {
     @GET("/product/smartphone/{id}/reviews")
     Call<List<ReviewResponse>> getReviews(@Path("id") String id);
 
+    @GET("/user/reviews")
+    Call<List<ReviewResponse>> getOwnReviews(@Header("Authorization") String token);
+
     @GET("/product/smartphone/{id}/resources")
     Call<List<Magazins>> getResources(@Path("id") String id);
 
@@ -92,4 +96,11 @@ public interface interfaceAPI {
     Call<Void> oauth2(@Path(value="service") String service);
 //    @GET("/somewhere")
 //    Call<Post> something(String something);
+
+    @PUT("/user/username")
+    Call<ResponseBody> updateUsername(@Body UpdateUsernameRequest usernameRequest, @Header("Authorization") String token);
+
+    @Multipart
+    @PUT("/user/avatar")
+    Call<Void> updateAvatar(@Part MultipartBody.Part image, @Header("Authorization") String token);
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="176dp"
@@ -9,10 +10,15 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/nav_account"/>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/menu_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/circleAvatarSettingView"
+        app:strokeColor="@color/avatar_border"
+        app:strokeWidth="2dp"
+        android:src="@drawable/axlr"/>
 
     <TextView
         android:id="@+id/name"

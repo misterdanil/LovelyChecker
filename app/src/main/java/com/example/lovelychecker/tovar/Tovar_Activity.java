@@ -1,5 +1,6 @@
 package com.example.lovelychecker.tovar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import com.example.lovelychecker.MainActivity;
 import com.example.lovelychecker.PaginationScrollListener;
 import com.example.lovelychecker.R;
 import com.example.lovelychecker.RetrofitClientInstance;
+import com.example.lovelychecker.cabinet;
 import com.example.lovelychecker.interfaceAPI;
 import com.google.android.material.navigation.NavigationView;
 
@@ -70,7 +72,30 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        AppCompatActivity activity = this;
+
         drawerLayout = findViewById(R.id.drawer_layout);
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+                new cabinet.ImageBitmapUriTask(activity, findViewById(R.id.menu_avatar)).execute(RetrofitClientInstance.BASE_URL + "/user/avatar");
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
 
         findViewById(R.id.toolbar).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,9 +268,9 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 //                break;
             case R.id.nav_logout:
-//                RetrofitClientInstance.USER_ID = null;
-//                RetrofitClientInstance.USERNAME = null;
-//                RetrofitClientInstance.ACCESS_TOKEN = null;
+                RetrofitClientInstance.USER_ID = null;
+                RetrofitClientInstance.USERNAME = null;
+                RetrofitClientInstance.ACCESS_TOKEN = null;
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -253,6 +278,10 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
             case R.id.chats:
                 Intent intent2 = new Intent(this, ChatsFragment.class);
                 startActivity(intent2);
+                break;
+            case R.id.nav_settings:
+                Intent intent3 = new Intent(this, cabinet.class);
+                startActivity(intent3);
                 break;
         }
 
