@@ -32,6 +32,25 @@ public class Review extends AppCompatActivity {
         first = findViewById(R.id.first);
         second = findViewById(R.id.second);
         rating = findViewById(R.id.rating);
+
+        interfaceAPI interfaceApi = RetrofitClientInstance.getInstance();
+        Call<ReviewResponse> callReview = interfaceApi.getReview(id, RetrofitClientInstance.USER_ID);
+        callReview.enqueue(new Callback<ReviewResponse>() {
+            @Override
+            public void onResponse(Call<ReviewResponse> call, Response<ReviewResponse> response) {
+                if(response.isSuccessful()) {
+                    ReviewResponse review = response.body();
+                    rating.setRating(review.getRating());
+                    first.setText(review.getTitle());
+                    second.setText(review.getText());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReviewResponse> call, Throwable t) {
+
+            }
+        });
         Makereview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +71,9 @@ public class Review extends AppCompatActivity {
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.isSuccessful()) {
                             Intent intent = new Intent(Review.this, ItemScreen.class);
+                            intent.putExtra("id", id);
                             startActivity(intent);
+                            finish();
                         }
                         else {
 

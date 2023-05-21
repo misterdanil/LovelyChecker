@@ -67,6 +67,9 @@ public interface interfaceAPI {
     @GET("/product/smartphone/{id}/reviews")
     Call<List<ReviewResponse>> getReviews(@Path("id") String id);
 
+    @GET("/product/smartphone/{productId}/user/{userId}/review")
+    Call<ReviewResponse> getReview(@Path("productId") String productId, @Path("userId")String userId);
+
     @GET("/user/reviews")
     Call<List<ReviewResponse>> getOwnReviews(@Header("Authorization") String token);
 

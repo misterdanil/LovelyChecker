@@ -1,7 +1,9 @@
 package com.example.lovelychecker.tovar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -64,6 +66,8 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
     private int currentPage = PAGE_START;
     private int limit_products = 25;
 
+    private View headerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +113,7 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
 
         progressBar = findViewById(R.id.progressbar);
 
-        View headerView = navigationView.inflateHeaderView(R.layout.nav_header);
+        headerView = navigationView.inflateHeaderView(R.layout.nav_header);
         ((TextView)headerView.findViewById(R.id.name)).setText(RetrofitClientInstance.USERNAME);
         isLastPage = false;
         isLoading = false;
@@ -339,5 +343,23 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+
+        ((TextView)headerView.findViewById(R.id.name)).setText(RetrofitClientInstance.USERNAME);
+        new cabinet.ImageBitmapUriTask(this, findViewById(R.id.account_icon)).execute(RetrofitClientInstance.BASE_URL + "/user/avatar");
+        new cabinet.ImageBitmapUriTask(this, headerView.findViewById(R.id.menu_avatar)).execute(RetrofitClientInstance.BASE_URL + "/user/avatar");
     }
 }

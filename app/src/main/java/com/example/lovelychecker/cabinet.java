@@ -277,6 +277,7 @@ public class cabinet extends AppCompatActivity {
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 if(response.isSuccessful()) {
                                     imageView.setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+                                    ((ImageView)findViewById(R.id.account_icon)).setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
                                 }
                                 else {
                                     System.out.println("Error: " + response.code());
