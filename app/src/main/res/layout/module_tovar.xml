@@ -44,13 +44,16 @@
             android:textColor="@color/lavender"
             android:textSize="20sp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/circleAvatarSettingView"
+            app:strokeColor="@color/avatar_border"
+            app:strokeWidth="2dp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/nav_account"
+            android:src="@drawable/axlr"
             android:id="@+id/account_icon"
-            android:paddingTop="10dp"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
 

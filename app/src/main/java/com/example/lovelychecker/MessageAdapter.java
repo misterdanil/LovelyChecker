@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,11 +31,16 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private final Context context;
     private final List<Message> listRecyclerItem;
     private RecyclerView recyclerView;
+    private Activity activity;
 
-    public MessageAdapter(Context context, List<Message> listRecyclerItem, RecyclerView recyclerView) {
+
+    public MessageAdapter(Context context, List<Message> listRecyclerItem, RecyclerView recyclerView,
+                          Activity activity) {
         this.context = context;
         this.listRecyclerItem = listRecyclerItem;
         this.recyclerView = recyclerView;
+        this.activity = activity;
+
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -42,13 +48,15 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView dateView;
         TextView nameView;
         TextView globalDateView;
+        ImageView avatar;
         boolean setdDate;
-        public ItemViewHolder(@NonNull View itemView, TextView messageView, TextView dateView, TextView nameView, TextView globalDateView, boolean setDate) {
+        public ItemViewHolder(@NonNull View itemView, TextView messageView, TextView dateView, TextView nameView, TextView globalDateView, ImageView avatar, boolean setDate) {
             super(itemView);
             this.messageView = messageView;
             this.dateView = dateView;
             this.nameView = nameView;
             this.globalDateView = globalDateView;
+            this.avatar = avatar;
             this.setdDate = setDate;
         }
     }
@@ -66,6 +74,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         TextView dateView;
         TextView globalDateView;
         TextView nameView = null;
+        ImageView avatar = null;
 
         switch (i) {
             case TYPE:
@@ -83,6 +92,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     dateView = layoutView.findViewById(R.id.text_gchat_timestamp_other);
                     nameView = layoutView.findViewById(R.id.text_gchat_user_other);
                     globalDateView = layoutView.findViewById(R.id.text_gchat_date_other);
+                    avatar = layoutView.findViewById(R.id.user_image);
                 }
 
                 boolean set = false;
@@ -102,7 +112,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     set = true;
                 }
 
-                return new ItemViewHolder(layoutView, messageView, dateView, nameView, globalDateView, set);
+                return new ItemViewHolder(layoutView, messageView, dateView, nameView, globalDateView, avatar, set);
         }
     }
     @Override
@@ -138,6 +148,10 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 itemViewHolder.dateView.setText(time);
                 if (itemViewHolder.nameView != null) {
                     itemViewHolder.nameView.setText(message.getUser().getFirstName());
+                }
+                if(itemViewHolder.avatar != null) {
+                    new cabinet.ImageBitmapUriTask(activity, itemViewHolder.avatar).execute(RetrofitClientInstance.BASE_URL + "/user/" +
+                            message.getUser().getId() + "/avatar");
                 }
         }
 

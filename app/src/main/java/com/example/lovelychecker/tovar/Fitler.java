@@ -40,6 +40,9 @@ public class Fitler extends AppCompatActivity {
         brand.add("Xiaomi");
         brand.add("Apple");
         brand.add("Samsung");
+        brand.add("HUAWEI");
+        brand.add("Honor");
+        brand.add("vivo");
         ozy.add("4 GB");
         ozy.add("2 GB");
         ozy.add("8 GB");

@@ -214,7 +214,7 @@ public class ChatActivity extends AppCompatActivity {
         prodList = findViewById(R.id.prodList);
         prodList.setLayoutManager(layoutManager);
 
-        messageAdapter = new MessageAdapter(this, item, prodList);
+        messageAdapter = new MessageAdapter(this, item, prodList, this);
 
         messageAdapter.new RetrieveFeedTask(this, messageAdapter).execute(chatId);
 

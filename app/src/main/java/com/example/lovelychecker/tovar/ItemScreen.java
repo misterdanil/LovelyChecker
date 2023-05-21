@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lovelychecker.R;
 import com.example.lovelychecker.RetrofitClientInstance;
+import com.example.lovelychecker.cabinet;
 import com.example.lovelychecker.interfaceAPI;
 import com.google.gson.internal.LinkedTreeMap;
 
@@ -64,6 +65,8 @@ public class ItemScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_screen);
+
+        new cabinet.ImageBitmapUriTask(this, findViewById(R.id.account_icon)).execute(RetrofitClientInstance.BASE_URL + "/user/avatar");
 
         LinearLayout linearLayout = findViewById(R.id.characteristic_button);
         linearLayout.setOnClickListener(new View.OnClickListener() {

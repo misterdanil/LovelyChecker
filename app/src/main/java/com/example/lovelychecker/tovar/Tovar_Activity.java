@@ -29,6 +29,7 @@ import com.example.lovelychecker.interfaceAPI;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -73,6 +74,8 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
 
         AppCompatActivity activity = this;
+
+        new cabinet.ImageBitmapUriTask(activity, findViewById(R.id.account_icon)).execute(RetrofitClientInstance.BASE_URL + "/user/avatar");
 
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
@@ -263,10 +266,14 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Intent currentIntent = getIntent();
+        ArrayList<String> brandList = new ArrayList<>();
+
         switch (item.getItemId()) {
 //            case R.id.for_home:
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
 //                break;
+
             case R.id.nav_logout:
                 RetrofitClientInstance.USER_ID = null;
                 RetrofitClientInstance.USERNAME = null;
@@ -282,6 +289,42 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
             case R.id.nav_settings:
                 Intent intent3 = new Intent(this, cabinet.class);
                 startActivity(intent3);
+                break;
+            case R.id.apple:
+                brandList.add("Apple");
+                currentIntent.putStringArrayListExtra("brands", brandList);
+                finish();
+                startActivity(currentIntent);
+                break;
+            case R.id.samsung:
+                brandList.add("Samsung");
+                currentIntent.putStringArrayListExtra("brands", brandList);
+                finish();
+                startActivity(currentIntent);
+                break;
+            case R.id.huawei:
+                brandList.add("HUAWEI");
+                currentIntent.putStringArrayListExtra("brands", brandList);
+                finish();
+                startActivity(currentIntent);
+                break;
+            case R.id.xiaomi:
+                brandList.add("Xiaomi");
+                currentIntent.putStringArrayListExtra("brands", brandList);
+                finish();
+                startActivity(currentIntent);
+                break;
+            case R.id.honor:
+                brandList.add("Honor");
+                currentIntent.putStringArrayListExtra("brands", brandList);
+                finish();
+                startActivity(currentIntent);
+                break;
+            case R.id.vivo:
+                brandList.add("vivo");
+                currentIntent.putStringArrayListExtra("brands", brandList);
+                finish();
+                startActivity(currentIntent);
                 break;
         }
 

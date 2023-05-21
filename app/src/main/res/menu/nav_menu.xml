@@ -13,39 +13,32 @@
             android:title="Чаты" />
 
         <item
-            android:id="@+id/for_home"
-            android:icon="@drawable/nav_home"
-            android:title="Для дома" />
+            android:id="@+id/apple"
+            android:icon="@drawable/nav_apple"
+            android:title="iPhone" />
 
         <item
-            android:id="@+id/for_kitchen"
-            android:icon="@drawable/nav_kitchen"
-            android:title="Для кухни" />
+            android:id="@+id/samsung"
+            android:icon="@drawable/nav_samsung"
+            android:title="Samsung" />
 
         <item
-            android:id="@+id/computers"
-            android:icon="@drawable/nav_pc"
-            android:title="Компьютеры" />
+            android:id="@+id/huawei"
+            android:icon="@drawable/nav_huawei"
+            android:title="HUAWEI" />
 
         <item
-            android:id="@+id/acessories"
-            android:icon="@drawable/nav_accessory"
-            android:title="Аксессуары для техники" />
-
+            android:id="@+id/xiaomi"
+            android:icon="@drawable/nav_xiaomi"
+            android:title="Xiaomi" />
         <item
-            android:id="@+id/connection"
-            android:icon="@drawable/nav_connection"
-            android:title="Связь" />
-
+            android:id="@+id/honor"
+            android:icon="@drawable/nav_honor"
+            android:title="Honor" />
         <item
-            android:id="@+id/car_tech"
-            android:icon="@drawable/nav_car"
-            android:title="Автотехника" />
-
-        <item
-            android:id="@+id/photo"
-            android:icon="@drawable/nav_photo"
-            android:title="Фото/видео" />
+            android:id="@+id/vivo"
+            android:icon="@drawable/nav_vivo"
+            android:title="vivo" />
     </group>
 
     <item

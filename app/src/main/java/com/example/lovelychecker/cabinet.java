@@ -73,6 +73,8 @@ public class cabinet extends AppCompatActivity {
         txtname.setText(RetrofitClientInstance.USERNAME);
         list = (RecyclerView) findViewById(R.id.revList); //Сюда выводи отзывы
 
+        new cabinet.ImageBitmapUriTask(this, findViewById(R.id.account_icon)).execute(RetrofitClientInstance.BASE_URL + "/user/avatar");
+
         findViewById(R.id.arrow_icon).setOnClickListener(e -> {
             finish();
         });
@@ -170,7 +172,6 @@ public class cabinet extends AppCompatActivity {
         });
 
         new ImageBitmapUriTask(this, imageView).execute(RetrofitClientInstance.BASE_URL + "/user/avatar");
-
     }
 
     public static class ImageBitmapUriTask extends AsyncTask<String, Void, Void> {

@@ -20,6 +20,7 @@ import com.example.lovelychecker.ChatActivity;
 import com.example.lovelychecker.ChatRequest;
 import com.example.lovelychecker.R;
 import com.example.lovelychecker.RetrofitClientInstance;
+import com.example.lovelychecker.cabinet;
 import com.example.lovelychecker.interfaceAPI;
 
 import java.io.IOException;
@@ -113,7 +114,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 itemViewHolder.opisanie.setText(review.getText()); //Вот сюда пихать описание товара, которое написал пользователь
                 itemViewHolder.zagolovok.setText(review.getTitle()); //Вот сюда пихать заголовок( текст который был выделен)
                 itemViewHolder.nickname.setText(review.getUsername()); //Вот сюда пихать никнейм пользователя
-                itemViewHolder.image.setImageResource(R.drawable.baseline_person_24); //Сюда пихать аватарку пользователя
+                new cabinet.ImageBitmapUriTask(activity, itemViewHolder.image).execute(RetrofitClientInstance.BASE_URL + "/user/" + review.getUserId() + "/avatar");
+                //Сюда пихать аватарку пользователя
                 if(review.getUserId().equals(RetrofitClientInstance.USER_ID)) {
                     itemViewHolder.button.setVisibility(View.GONE);
                 }

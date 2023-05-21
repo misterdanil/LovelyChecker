@@ -34,6 +34,8 @@ public class ChatsFragment extends AppCompatActivity {
             finish();
         });
 
+        new cabinet.ImageBitmapUriTask(this, findViewById(R.id.account_icon)).execute(RetrofitClientInstance.BASE_URL + "/user/avatar");
+
         recyclerView = findViewById(R.id.chats_recycler_view);
 
         recyclerView.setHasFixedSize(true);
