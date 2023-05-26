@@ -369,6 +369,7 @@ public class ItemScreen extends AppCompatActivity {
                 Intent intent = new Intent(ItemScreen.this, Review.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
+                finish();
             }
         });
         nash_site.setOnClickListener(new View.OnClickListener() {

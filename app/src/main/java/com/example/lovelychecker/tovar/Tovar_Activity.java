@@ -245,8 +245,12 @@ public class Tovar_Activity extends AppCompatActivity implements NavigationView.
         isLoading = false;
         currentPage = 1;
 
-        brands.clear();
-        rams.clear();
+        if(brands != null) {
+            brands.clear();
+        }
+        if(rams != null) {
+            rams.clear();
+        }
         priceFrom = null;
         priceTo = null;
 

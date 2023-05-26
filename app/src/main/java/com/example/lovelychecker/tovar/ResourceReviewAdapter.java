@@ -123,6 +123,8 @@ public class ResourceReviewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     itemViewHolder.dislikeCount.setVisibility(View.GONE);
                     itemViewHolder.like.setVisibility(View.GONE);
                     itemViewHolder.dislike.setVisibility(View.GONE);
+                    itemViewHolder.advantages.setVisibility(View.GONE);
+                    itemViewHolder.disadvantages.setVisibility(View.GONE);
                 }
                 itemViewHolder.nickname.setText(review.getSender()); //Вот сюда пихать никнейм пользователя
                 itemViewHolder.image.setImageResource(R.drawable.baseline_person_24); //Сюда пихать аватарку пользователя
