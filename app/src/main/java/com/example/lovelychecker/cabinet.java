@@ -114,10 +114,13 @@ public class cabinet extends AppCompatActivity {
                                 }
                             }
                             else {
-                                txtname.setText(newName.getText());
+//                                txtname.setText(newName.getText());
                                 RetrofitClientInstance.USERNAME = newName.getText().toString();
-                                newName.setVisibility(View.GONE);
-                                change_name.setText("Изменить имя");
+//                                newName.setVisibility(View.GONE);
+//                                change_name.setText("Изменить имя");
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
                             }
                         }
 
@@ -276,8 +279,11 @@ public class cabinet extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 if(response.isSuccessful()) {
-                                    imageView.setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
-                                    ((ImageView)findViewById(R.id.account_icon)).setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+//                                    imageView.setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+//                                    ((ImageView)findViewById(R.id.account_icon)).setImageBitmap(BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
+                                    Intent intent = getIntent();
+                                    finish();
+                                    startActivity(intent);
                                 }
                                 else {
                                     System.out.println("Error: " + response.code());
